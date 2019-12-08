@@ -1,0 +1,32 @@
+class Solution {
+    public String countAndSay(int n) {
+        // 先创建一个初始字符串 “1”
+        String s = "1";
+        if (n == 1) {
+            return s;
+        }
+        for (int i = 2; i < n; i++) {
+            // str 方便用来修改字符串内容
+            StringBuilder str = new StringBuilder();
+            // cur 用来和后面的字符比较
+            char cur = s.charAt(0);
+            // count 代表当前 cur 的数量
+            int count = 1;
+            for (int j = 1; j < s.length(); j++) {
+                if (cur == s.charAt(j)) {
+                    count++;
+                } else {
+                    // 如果不相等,那么就添加当前 cur 的数量和 cur 进 str字符串中
+                    str.append(count).append(cur);
+                    // 将 cur 更新为不相等的字符
+                    cur = s.charAt(j);
+                    // 并且将当前 cur 的数量重新置为 1
+                    count = 1;
+                }
+            }
+            str.append(count).append(cur);
+            s = str.toString();
+        }
+        return s;
+    }
+}
