@@ -1,0 +1,16 @@
+class Solution {
+    public int lengthOfLastWord(String s) {
+        if (" ".equals(s) || s.length() == 0 || s == null) {
+            return 0;
+        }
+        String[] str = s.split(" ");
+        // 注意如果示例为“    ”
+        // 前面的参数判断并不能去除这种情况
+        // 按照" "分割字符串之后，数组 str 的长度为 0
+        if (str.length == 0) {
+            return 0;
+        }
+        String newString = str[str.length - 1];
+        return  newString.length();
+    }
+}
