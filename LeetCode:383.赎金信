@@ -1,0 +1,47 @@
+// 第一种方法
+class Solution {
+    public boolean canConstruct(String ransomNote, String magazine) {
+        if (magazine.length() < ransomNote.length()) {
+            return false;
+        }
+        char[] array1 = ransomNote.toCharArray();
+        char[] array2 = magazine.toCharArray();
+        Map<Character, Integer> map = new HashMap<>();
+        for (char s : array2) {
+            map.put(s, map.getOrDefault(s, 0) + 1);
+        }
+        for (char x : array1) {
+            if (!map.containsKey(x)) {
+                return false;
+            } else {
+                if (map.get(x) - 1 == 0) {
+                    map.remove(x);
+                } else {
+                    map.put(x, map.get(x) - 1);
+                }
+            }
+        }
+        return true;
+    }
+}
+
+// 第二种方法
+class Solution {
+    public boolean canConstruct(String ransomNote, String magazine) {
+        if (magazine.length() < ransomNote.length()) {
+            return false;
+        }
+        StringBuilder stringBuilder = new StringBuilder(magazine);
+        char[] array = ransomNote.toCharArray();
+        int tmp = 0;
+        for (char x : array) {
+            tmp = stringBuilder.indexOf(String.valueOf(x));
+            if (tmp >= 0) {
+                stringBuilder.deleteCharAt(tmp);
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+}
