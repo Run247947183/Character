@@ -1,0 +1,13 @@
+class Solution {
+    public int countSegments(String s) {
+        String[] str = s.split(" ");
+        int count = 0;
+        for (String x : str) {
+            // "" 代表单个的字符串，例如 ，空格 等
+            if (!"".equals(x)) {
+                count++;
+            }
+        }
+        return count;
+    }
+}
