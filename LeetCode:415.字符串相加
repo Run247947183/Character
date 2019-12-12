@@ -1,0 +1,22 @@
+class Solution {
+    public String addStrings(String num1, String num2) {
+        StringBuilder stringBuilder = new StringBuilder();
+        int count = 0;
+        int i = num1.length() - 1;
+        int j = num2.length() - 1;
+        // 如果 count 还有数字,说明还需要进位
+        while (i >= 0 || j >= 0 || count != 0) {
+            if (i >= 0) {
+                // 字符减去 '0' 就能代表该字符的数字形式
+                count += num1.charAt(i--) - '0';
+            }
+            if (j >= 0) {
+                count += num2.charAt(j--) - '0';
+            }
+            stringBuilder.append(count % 10);
+            // 如果两个数相加大于10，那么就需要进位
+            count /= 10;
+        }
+        return stringBuilder.reverse().toString();
+    }
+}
