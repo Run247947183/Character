@@ -1,0 +1,26 @@
+class Solution {
+    public boolean canPlaceFlowers(int[] flowerbed, int n) {
+        int sum = 0;
+        // 先算上一个0
+        // 因为如果将 count 置为 0 ，当数组前两个元素为 0 时，不满足 count == 3 的条件
+        // 此时不用考虑边界的问题
+        int count = 1;
+        for (int i = 0; i < flowerbed.length; i++) {
+            if (flowerbed[i] == 0) {
+                count++;
+            } else {
+                count = 0;
+            }
+            if (count == 3) {
+                sum++;
+                count = 1;
+            }
+        }
+        // 循环结束之后，如果 0 的个数还有两个
+        // 那么可以将最后一个元素种上花
+        if (count == 2) {
+            sum++;
+        }
+        return sum >= n;
+    }
+}
