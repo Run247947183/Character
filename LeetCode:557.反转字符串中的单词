@@ -1,3 +1,4 @@
+// 第一种做法：
 class Solution {
     public String reverseWords(String s) {
         char[] arr = s.toCharArray();
@@ -19,5 +20,31 @@ class Solution {
             x++;
             y--;
         }
+    }
+}
+
+// 第二种做法：
+class Solution {
+    public String reverseWords(String s) {
+        String[] str = s.split(" ");
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < str.length; i++) {
+            char[] arr = str[i].toCharArray();
+            int left = 0;
+            int right = arr.length - 1;
+            while (left < right) {
+                char tmp = arr[left];
+                arr[left] = arr[right];
+                arr[right] = tmp;
+                left++;
+                right--;
+            }
+            sb.append(new String(arr));
+            if (i != str.length - 1) {
+                sb.append(' ');
+            }
+        }
+        String newStr = sb.toString();
+        return newStr;
     }
 }
