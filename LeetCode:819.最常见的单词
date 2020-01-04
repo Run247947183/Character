@@ -1,0 +1,67 @@
+public String mostCommonWord(String paragraph, String[] banned) {
+        //让段落以其他符号结尾
+        paragraph = paragraph + " ";
+        //1.大小写转换 顺便直接去除符号 顺便分段单词word
+        //3.筛掉banned
+        int len = paragraph.length(); 
+        //存word
+        String[] words = new String[1000];
+        //存出现次数
+        int[] cishu = new int[1000];
+        //总词数
+        int s = 0;
+        StringBuffer word = new StringBuffer();
+        for(int i = 0;i < len; i++){
+            char c = paragraph.charAt(i);
+            //先判断是否是字母
+            if((c >= 65 && c <= 90) || (c >= 97 && c <= 122)){
+                //大小化小写
+                if(c <= 90){
+                    c = (char)((int)c + 32);
+                }
+                word.append(c);
+            }else if(word.length() > 0){
+                    String cur = word.toString();
+                    //筛选bana
+                    boolean tag = true;
+                    for(int j = 0;j < banned.length; j++){
+                        if(cur.equals(banned[j])){
+                            tag = false;
+                            break;
+                        }
+                    }
+                    //如果不是
+                    if(tag){
+                        //判断重复
+                        if(s > 0){
+                            for(int m = 0; m < s; m++){
+                                //如果相等
+                                if(cur.equals(words[m])){
+                                    //更改标记状态
+                                    tag = false;
+                                    cishu[m] = cishu[m] + 1;
+                                }
+                            }
+                        }
+                        //如果没有重复
+                        if(tag){
+                            words[s] = cur;
+                            cishu[s] = 1;
+                            s++;
+                        }
+                    }
+                word = new StringBuffer();
+            }
+        }
+
+        int MaxNum = 0;
+        int MaxIndex = 0;
+        //最后判断大小
+        for(int i = 0; i < s ; i++){
+            if(MaxNum < cishu[i]){
+                MaxNum = cishu[i];
+                MaxIndex = i;
+            }
+        }
+        return words[MaxIndex];
+    }
