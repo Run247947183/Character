@@ -1,0 +1,49 @@
+class Solution {
+    public String reverseOnlyLetters(String S) {
+        // 双指针法
+        int left = 0;
+        int right = S.length() - 1;
+        char[] chars = S.toCharArray();
+        // count 记录字符串中有多少个字母
+        int count = 0;
+        for (int i = 0; i < chars.length; i++) {
+            if (!isCharacter(chars, i)) {
+                count++;
+            }
+        }
+        // 能够反转的字母组数
+        count = count / 2;
+        // 记录已经反转的组数
+        if (count == 0) {
+            return new String(chars);
+        }
+        int tmp = 0;
+        while (left < right && tmp < count) {
+            while (isCharacter(chars, left) && left < right) {
+                left++;
+            }
+            while (isCharacter(chars, right) && right > left) {
+                right--;
+            }
+            swap(chars, left, right);
+            left++;
+            right--;
+            tmp++;
+        }
+        return new String(chars);
+    }
+    // 判断是否是字母
+    public boolean isCharacter(char[] s, int pos) {
+        if (s[pos] < 'A' || (s[pos] > 'Z' && s[pos] < 'a')
+            || s[pos] > 'z') {
+            return true;
+        }
+        return false;
+    }
+    // 转换两个字母
+    public void swap(char[] chars, int x, int y) {
+        char tmp = chars[x];
+        chars[x] = chars[y];
+        chars[y] = tmp;
+    }
+}
