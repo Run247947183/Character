@@ -1,0 +1,28 @@
+class Solution {
+    public int numUniqueEmails(String[] emails) {
+        if (emails.length < 1) {
+            return 0;
+        }
+        // 因为 HashSet 能够添加不重复的元素
+        // 最后结果就是 set 的长度
+        Set<String> set = new HashSet<>();
+        for (int i = 0; i < emails.length; i++) {
+            String[] str = emails[i].split("@");
+            StringBuilder sb = new StringBuilder();
+            for (int j = 0; j < str[0].length(); j++) {
+                if (str[0].charAt(j) == '+') {
+                    break;
+                }
+                if (str[0].charAt(j) == '.') {
+                    continue;
+                }
+                sb.append(str[0].charAt(j));
+            }
+            // 将 @ 和 后面的网址加回去
+            sb.append("@");
+            sb.append(str[1]);
+            set.add(sb.toString());
+        }
+        return set.size();
+    }
+}
