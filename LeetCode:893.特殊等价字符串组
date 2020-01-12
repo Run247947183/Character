@@ -1,0 +1,19 @@
+public int numSpecialEquivGroups(String[] A) {
+        int[] primes = new int[]{2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,101};
+        Set<String> set = new HashSet<>();
+        for(String a : A){
+            long odd = 1;
+            long even = 1;
+            char[] cs = a.toCharArray();
+            for(int i=0;i<cs.length;i++){
+                if(i % 2 == 0){
+                    even *= primes[cs[i]-'a'];
+                }else{
+                    odd *= primes[cs[i]-'a'];
+                }
+            }
+            set.add(odd+"_"+even);
+        }
+
+        return set.size();
+    }
