@@ -1,0 +1,41 @@
+class Solution {
+    public int maxNumberOfBalloons(String text) {
+        int len = text.length();
+        // 如果 text 的长度小于 7 那说明不构成一个 balloon
+        if (len < 7) {
+            return 0;
+        }
+        Map<Character, Integer> map = new HashMap<>();
+        for (char x : text.toCharArray()) {
+            map.put(x, map.getOrDefault(x, 0) + 1);
+        }
+        // 利用 StringBuilder 来构造足够的 balloon
+        // 以便于后面进行判断
+        StringBuilder sb = new StringBuilder();
+        for (int j = 0; j < (len / 7); j++) {
+            sb.append("balloon");
+        }
+        String str = sb.toString();
+        int count = 0; // count 用来数够不够成一个 balloon 的数
+        int res = 0; // res 用来数构成了几个 balloon
+        for (int k = 0; k < str.length(); k++) {
+            char chars = str.charAt(k);
+            // 如果 map 中 存在 chars 
+            if (map.containsKey(chars)) {
+                count++;
+                if (count == 7) {
+                    res++;
+                    count = 0;
+                }
+                map.put(chars, map.get(chars) - 1);
+                if (map.get(chars) == 0) {
+                    map.remove(chars);
+                }
+            } else {
+                // 不存在就说明构不成一个 balloon 了，就直接退出
+                break;
+            } 
+        }
+        return res;
+    }
+}
