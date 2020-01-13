@@ -1,0 +1,27 @@
+class Solution {
+    public String freqAlphabets(String s) {
+        StringBuilder res = new StringBuilder();
+        // 从后往前遍历
+        for (int i = s.length() - 1; i >= 0; i--) {
+            char chars = s.charAt(i);
+            // 遇到 '#' 则取在该字符前 2 位的字符串来进行转换成字母操作
+            if (chars == '#') {
+                String cur = s.substring(i - 2, i);
+                int num = Integer.parseInt(cur);
+                char tmp = (char)(num + 'a' - 1);
+                res.insert(0, tmp);
+                i = i - 2;
+            } else {
+                // 如果是单个字符进行转换成字母的操作
+                // 先将该字符转换成字符串形式
+                String cur = chars + "";
+                // 再转换成对应字符串内容的数字
+                int num = Integer.parseInt(cur);
+                // 最后转换成对应的字母
+                char tmp = (char)(num + 'a' - 1);
+                res.insert(0, tmp);
+            }
+        }
+        return res.toString();
+    }
+}
