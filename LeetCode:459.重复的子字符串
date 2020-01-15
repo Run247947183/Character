@@ -1,0 +1,8 @@
+class Solution {
+    public boolean repeatedSubstringPattern(String s) {
+        char[] array = s.toCharArray;
+        if (array.length > 10000) {
+            return false;
+        } 
+    }
+}
