@@ -1,0 +1,26 @@
+class Solution {
+public:
+    string gcdOfStrings(string str1, string str2) {
+        if (str1.size() == 0 || str2.size() == 0) return string();
+        else if (str1.size() < str2.size()) swap(str1, str2);
+
+        // 此时 alen >= blen
+        int alen = str1.size();
+        int blen = str2.size();
+
+        int i(0), j(0);
+        while (i < alen) {
+            j = (j != blen) ? j : 0;
+
+            if (str1[i++] != str2[j++]) return string();
+        }
+        
+        //此时j == alen % blen .or. j == blen
+        while (i = blen % j) {
+            blen = j; j = i;
+        }
+
+        return str2.substr(0,j);
+    }
+
+};
