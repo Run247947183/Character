@@ -14,3 +14,14 @@ class Solution {
         return  newString.length();
     }
 }
+
+// 方法二：
+class Solution {
+    public int lengthOfLastWord(String s) {
+        String[] chars = s.split(" ");
+        if (chars == null || chars.length == 0) {
+            return 0;
+        }
+        return chars[chars.length - 1].length();
+    }
+}
