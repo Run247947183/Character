@@ -45,3 +45,28 @@ class Solution {
         return true;
     }
 }
+
+// 第三种方法
+class Solution {
+    public boolean canConstruct(String ransomNote, String magazine) {
+        if (magazine.length() < ransomNote.length()) {
+            return false;
+        }
+        Map<Character, Integer> map = new HashMap<>();
+        for (char c : magazine.toCharArray()) {
+            map.put(c, map.getOrDefault(c, 0) + 1);
+        }
+        for (char x : ransomNote.toCharArray()) {
+            if (!map.containsKey(x)) {
+                return false;
+            }
+            map.put(x, map.get(x) - 1);
+        }
+        for (char chars : map.keySet()) {
+            if (map.get(chars) < 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
