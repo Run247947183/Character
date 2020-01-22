@@ -47,3 +47,48 @@ class Solution {
         chars[y] = tmp;
     }
 }
+
+// 方法二：
+class Solution {
+    public String reverseOnlyLetters(String S) {
+        if (S.length() < 2) {
+            return S;
+        }
+        StringBuilder sb = new StringBuilder();
+        Map<Integer, Character> map = new HashMap<>();
+        for (int i = 0; i < S.length(); i++) {
+            if (!is_letter(S.charAt(i))) {
+                map.put(i, S.charAt(i));
+            } else {
+                sb.append(S.charAt(i));
+            }
+        }
+        String str = sb.toString();
+        char[] chars = str.toCharArray();
+        int left = 0;
+        int right = str.length() - 1;
+        while (left < right) {
+            char tmp = chars[left];
+            chars[left] = chars[right];
+            chars[right] = tmp;
+            left++;
+            right--;
+        }
+        StringBuilder sb2 = new StringBuilder();
+        int k = 0;
+        for (int j = 0; j < S.length(); j++) {
+            if (map.containsKey(j)) {
+                sb2.append(map.get(j));
+            } else {
+                sb2.append(chars[k++]);
+            }
+        }
+        return sb2.toString();
+    }
+    public boolean is_letter(char c) {
+        if (c < 'A' || (c > 'Z' && c < 'a') || c > 'z') {
+            return false;
+        }
+        return true;
+    }
+}
