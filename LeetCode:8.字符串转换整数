@@ -1,0 +1,63 @@
+class Solution {
+    public int myAtoi(String str) {
+        // str 为空，则返回 0
+        if (str == null) {
+            return 0;
+        }
+        char[] chars = str.toCharArray();
+        StringBuilder sb = new StringBuilder();
+        boolean tag = true; // 用来判断是否已经添加字符 '-' 或者 '+'
+        long tmp = 0; // 判断当前字符串转换成数字是否超出整数类型的最大值和最小值
+        for (char c : chars) {
+            // 如果当前字符串为 '+' 或者 '-'，并且当前字符不为数字，则直接返回 0
+            if (sb.toString().equals("+") || sb.toString().equals("-")) {
+                if (c < '0' || c > '9') {
+                    return 0;
+                }
+            }
+            // 当前字符串不为空
+            if (sb.length() != 0) {
+                // 如果当前字符为 '.' ，根据题目取整数得，后面部分就舍弃，停止转换
+                if (c == '.' || c == '+' || c == '-') {
+                    break;
+                } else if (c < '0' || c >'9') {
+                    // 若当前字符不为数字，则停止转换
+                    break;
+                }
+            }
+            // 当前字符为数字
+            if (c >= '0' && c <= '9') {
+                // 添加入字符串
+                sb.append(c);
+                // 判断当前字符串转换成数字是否超出整数的范围
+                tmp = Long.valueOf(sb.toString());
+                if (tmp > Integer.MAX_VALUE) {
+                    // 若超出最大值，则返回整数的最大值
+                    return Integer.MAX_VALUE;
+                }
+                if (tmp < Integer.MIN_VALUE) {
+                    // 若超出最小值，则返回整数的最小值
+                    return Integer.MIN_VALUE;
+                }
+            }
+            // 若当前字符为 '+' 或者 '-' 
+            if ((c == '+' || c== '-') && tag) {
+                sb.append(c);
+                // 将 tag 设置为 false, 防止下次重复添加
+                tag = false;
+            }
+            // 如果第一个非空的字符不为数字或者正负号，则直接返回 0
+            if (sb.length() == 0 && c != ' ') {
+                return 0;
+            }
+        }
+        // 将字符串转换完之后，如果字符串长度为 0 ，说明原字符串全为空格字符
+        // 如果只添加的正号或者负号，也直接返回 0 
+        if (sb.toString().length() == 0 || sb.toString().equals("+") 
+            || sb.toString().equals("-")) {
+            return 0;
+        }
+        // 最后将合格条件的字符串转换成为数字返回
+        return Integer.valueOf(sb.toString());
+    }
+}
