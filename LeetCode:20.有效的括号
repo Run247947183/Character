@@ -1,0 +1,36 @@
+class Solution {
+    public boolean isValid(String s) {
+        // 存在奇数字符
+        if (s.length() % 2 != 0) {
+            return false;
+        }
+        Stack<Character> stack = new Stack<>();
+        for (char c : s.toCharArray()) {
+            if (c == '[' || c == '{' || c == '(') {
+                // 入栈
+                stack.push(c);
+            } else {
+                // 先判断栈是否为空，如果为空此时说明首先遇到了右括号
+                if (stack.isEmpty()) {
+                    return false;
+                } else {
+                    // 取出栈顶元素，也就是离 c 左边一位的字符
+                    char tmp = stack.pop();
+                    // 满足条件则继续
+                    if ((tmp == '[' && c == ']') || (tmp == '{' && c == '}')
+                        || (tmp == '(' && c == ')')) {
+                        continue;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+        }
+        // 循环完要判断栈是否为空
+        // 可能出现都是左括号的情况
+        if (!stack.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+}
